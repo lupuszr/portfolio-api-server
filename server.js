@@ -7,7 +7,6 @@ var passport = require('passport');
 var projectEndpoint = require('./endpoints/project')
 var app = express();
 
-var port = 3001;
 
 
 
@@ -33,4 +32,4 @@ router.get('/', function(req, res) {
 projectEndpoint.bindRoutes(router.route('/projects/'),router.route('/projects/:project_id'))
 app.use('/api', router);
 
-app.listen(port);
+app.listen(process.env.PORT || 5000);
