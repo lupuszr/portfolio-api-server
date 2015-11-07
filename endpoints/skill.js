@@ -49,7 +49,7 @@ var destroy = function(req, res){
 		if(err)
 			res.send(err)
 
-		res.json({message: "Project Removed"})
+		res.json({message: "Skill Removed"})
 	})
 }
 
@@ -71,7 +71,7 @@ var create = function(req, res) {
 		if (err) 
 			res.send(err);
 
-		res.json({ message: 'project added', data: skill})
+		res.json({ message: 'Skill added', data: skill})
 	})	
 } 
 
