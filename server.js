@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 
 var projectEndpoint = require('./endpoints/project')
+var skillEndpoint = require('./endpoints/skill')
 var app = express();
 
 
@@ -30,6 +31,7 @@ router.get('/', function(req, res) {
 })
 
 projectEndpoint.bindRoutes(router.route('/projects/'),router.route('/projects/:project_id'))
+skillEndpoint.bindRoutes(router.route('/skills/'),router.route('/skills/:skill_id'))
 app.use('/api', router);
 
 app.listen(process.env.PORT || 5000);
