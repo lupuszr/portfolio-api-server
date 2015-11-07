@@ -65,7 +65,7 @@ var index = function(req, res) {
 var create = function(req, res) {
 	var project = new Project()
 	project.name = req.body.name;
-	project.descriprion = req.body.descriprion;
+	project.description = req.body.description;
 	project.link = req.body.link;
 
 	project.save(function  (err) {
