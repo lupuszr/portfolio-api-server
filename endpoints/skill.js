@@ -63,7 +63,7 @@ var index = function(req, res) {
 
 var create = function(req, res) {
 	var skill = new Skill()
-	skill.name = req.body.name;
+	skill.sectionName = req.body.sectionName;
 	skill.description = req.body.description;
 	skill.items = req.body.items;
 
@@ -82,6 +82,6 @@ module.exports.bindRoutes = function(collection, elem){
 
 	elem
 		.get(show)
-		.put(auth.isAuthenticated, update)
+		.put(auth.isAuthenticated, 0update)
 		.delete(auth.isAuthenticated, destroy)
 }
