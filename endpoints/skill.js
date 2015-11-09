@@ -82,6 +82,6 @@ module.exports.bindRoutes = function(collection, elem){
 
 	elem
 		.get(show)
-		.put(auth.isAuthenticated, 0update)
+		.put(auth.isAuthenticated, update)
 		.delete(auth.isAuthenticated, destroy)
 }
