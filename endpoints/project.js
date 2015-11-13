@@ -17,8 +17,12 @@ var update = function(req, res) {
 		if (err)
 			res.send(err)
 
+		if (!!project === false){
+			res.send("No such project")
+			return;
+		}
+
 		for (var key in req.body) {
-			console.log(key)
 			if (req.body.hasOwnProperty(key)) {
   				switch(key){
   					case "name":
@@ -67,7 +71,6 @@ var create = function(req, res) {
 	project.name = req.body.name;
 	project.description = req.body.description;
 	project.link = req.body.link;
-	console.log(req.body)
 	project.save(function  (err) {
 		if (err) 
 			res.send(err);

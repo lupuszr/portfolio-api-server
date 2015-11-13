@@ -12,16 +12,20 @@ var show = function(req, res) {
 }
 
 var update = function(req, res) {
-
 	Skill.findById(req.params.skill_id, function(err, skill) {
-		if (err)
+		if (err){
 			res.send(err)
-
+		}
+		if (!!skill === false){
+			res.send("No such skill")
+			console.log("pina: ")
+			return;
+		}
 		for (var key in req.body) {
 			if (req.body.hasOwnProperty(key)) {
   				switch(key){
-  					case "name":
-  						skill.name = req.body.name;
+  					case "sectionName":
+  						skill.sectionName = req.body.sectionName;
   						break;
   					case "description":
   						skill.description = req.body.description;
@@ -38,7 +42,7 @@ var update = function(req, res) {
   			if(err)
   				res.send(err);
 
-  			res.json(project);
+  			res.json(skill);
   		})
 	})
 }
