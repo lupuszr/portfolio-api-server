@@ -21,6 +21,14 @@ var BlogSchema = new mongoose.Schema({
 	comments: [CommentSchema]
 })
 
+BlogSchema.statics.Filtered = function (selector, cb) {
+  var query = this.find({}).select(selector)
+
+  query.exec(function (err, model){
+  	cb(err,model)
+  })
+}
+
 BlogSchema.pre('save', function(next){
   now = new Date();
   this.updated_at = now;

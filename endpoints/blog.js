@@ -57,10 +57,11 @@ var destroy = function(req, res){
 }
 
 var index = function(req, res) {
-	Blog.find(function(err, blogs) {
+
+	Blog.Filtered('name description', function(err, blogs){
 		if (err)
-			res.send(err);
-		res.json(blogs);
+			res.send(err)
+		res.json(blogs)
 	})
 }
 

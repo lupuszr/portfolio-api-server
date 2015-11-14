@@ -89,11 +89,9 @@ describe('Blogs', function() {
 						elem.should.have.property('_id')
 						elem.name.should.equal('Blog ' + index);
 			        	elem.description.should.equal(index.toString());
-			        	elem.content.should.equal("Blog Content " + index);
-			        	elem.comments.should.deepEqual([])
 					})
+				done()
 				})
-			done()
 		});
 	});
 
