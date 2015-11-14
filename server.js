@@ -7,6 +7,8 @@ var passport = require('passport');
 
 var projectEndpoint = require('./endpoints/project')
 var skillEndpoint = require('./endpoints/skill')
+var blogEndpoint = require('./endpoints/blog')
+var blogCommentEndpoint = require('./endpoints/blog/comment')
 var app = express();
 
 
@@ -47,6 +49,8 @@ router.get('/', function(req, res) {
 
 projectEndpoint.bindRoutes(router.route('/projects/'),router.route('/projects/:project_id'))
 skillEndpoint.bindRoutes(router.route('/skills/'),router.route('/skills/:skill_id'))
+blogEndpoint.bindRoutes(router.route('/blogs/'), router.route('/blogs/:blog_id'))
+blogCommentEndpoint.bindRoutes(router.route('/blogs/:blog_id/comments'), router.route('/blogs/:blog_id/comments/:comment_id'))
 app.use('/api', router);
 
 app.listen(process.env.PORT || 5000);
