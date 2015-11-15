@@ -58,11 +58,14 @@ var destroy = function(req, res){
 
 var index = function(req, res) {
 
-	Blog.Filtered('name description', function(err, blogs){
-		if (err)
-			res.send(err)
-		res.json(blogs)
-	})
+	Blog.find()
+		.select('name description')
+		.lean()
+		.exec(function (err, blogs) {
+			if (err) res.send(err);
+
+			res.send(blogs)
+		})
 }
 
 var create = function(req, res) {
