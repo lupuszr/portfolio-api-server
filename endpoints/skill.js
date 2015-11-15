@@ -2,6 +2,13 @@ var Skill = require('../models/skill');
 var auth = require('./auth')
 
 var show = function(req, res) {
+	req.checkParams('skill_id', 'Invalid urlparam').isMongoId();
+
+  	var errors = req.validationErrors();
+  	if (errors) {
+    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	return;
+  	}
 
 	Skill.findById(req.params.skill_id, function(err, skill) {
 		if (err)
@@ -18,7 +25,6 @@ var update = function(req, res) {
 		}
 		if (!!skill === false){
 			res.send("No such skill")
-			console.log("pina: ")
 			return;
 		}
 		for (var key in req.body) {

@@ -1,21 +1,20 @@
 var express = require('express');
+var expressValidator = require('express-validator');
 var mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 var dbConfig = require('./db.js');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var util = require('util') 
 
 var projectEndpoint = require('./endpoints/project')
 var skillEndpoint = require('./endpoints/skill')
 var blogEndpoint = require('./endpoints/blog')
 var blogCommentEndpoint = require('./endpoints/blog/comment')
+
 var app = express();
-
-
-
-
+app.use(expressValidator([])); 
 app.use(bodyParser.json());
-
 app.use(passport.initialize())
 
 switch(app.get('env')){

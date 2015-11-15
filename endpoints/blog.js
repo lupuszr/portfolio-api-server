@@ -1,7 +1,15 @@
 var Blog = require('../models/blog');
 var auth = require('./auth')
+var util = require('util')
 
 var show = function(req, res) {
+  	req.checkParams('blog_id', 'Invalid urlparam').isMongoId();
+
+  	var errors = req.validationErrors();
+  	if (errors) {
+    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	return;
+  	}
 
 	Blog.findById(req.params.blog_id, function(err, blog) {
 		if (err)
@@ -12,6 +20,14 @@ var show = function(req, res) {
 }
 
 var update = function(req, res) {
+	req.checkParams('blog_id', 'Invalid urlparam').isMongoId();
+
+	var errors = req.validationErrors();
+  	if (errors) {
+    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	return;
+  	}
+
 	Blog.findById(req.params.blog_id, function(err, blog) {
 		if (err){
 			res.send(err)
@@ -47,7 +63,14 @@ var update = function(req, res) {
 }
 
 var destroy = function(req, res){
-	
+	req.checkParams('blog_id', 'Invalid urlparam').isMongoId();
+
+	var errors = req.validationErrors();
+  	if (errors) {
+    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	return;
+  	}
+
 	Blog.findByIdAndRemove(req.params.blog_id, function(err){
 		if(err)
 			res.send(err)
@@ -64,6 +87,18 @@ var index = function(req, res) {
 }
 
 var create = function(req, res) {
+	req.checkParams('blog_id', 'Invalid urlparam').isMongoId();
+	req.checkBody('name', 'Invalid postparam').notEmpty().isAlphanumeric();
+	req.checkBody('description', 'Invalid postparam').notEmpty().isAlphanumeric();
+	req.checkBody('content', 'Invalid postparam').notEmpty().isAlphanumeric();
+	
+
+	var errors = req.validationErrors();
+  	if (errors) {
+    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	return;
+  	}
+
 	var blog = new Blog()
 	blog.name = req.body.name;
 	blog.description = req.body.description;

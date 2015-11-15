@@ -1,7 +1,16 @@
 var Project = require('../models/project');
 var auth = require('./auth')
+var util = require('./util')
 
 var show = function(req, res) {
+	req.checkParams('project_id', 'Invalid urlparam').isMongoId();
+
+  	var errors = req.validationErrors();
+  	if (errors) {
+    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	return;
+  	}
+
 
 	Project.findById(req.params.project_id, function(err, project) {
 		if (err)
