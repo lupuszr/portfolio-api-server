@@ -1,5 +1,6 @@
 var Skill = require('../models/skill');
 var auth = require('./auth')
+var util = require('util')
 
 var show = function(req, res) {
 	req.checkParams('skill_id', 'Invalid urlparam').isMongoId();
