@@ -1,13 +1,13 @@
 var Project = require('../models/project');
 var auth = require('./auth')
-var util = require('./util')
+var inspectUtil = require('../utils/inspectUtil')
 
 var show = function(req, res) {
 	req.checkParams('project_id', 'Invalid urlparam').isMongoId();
 
   	var errors = req.validationErrors();
   	if (errors) {
-    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	res.status(400).send('There have been validation errors: ' +  inspectUtil(errors,""));
     	return;
   	}
 
