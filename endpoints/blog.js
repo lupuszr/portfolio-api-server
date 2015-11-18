@@ -87,7 +87,6 @@ var index = function(req, res) {
 }
 
 var create = function(req, res) {
-	req.checkParams('blog_id', 'Invalid urlparam').isMongoId();
 	req.checkBody('name', 'Invalid postparam').notEmpty().isAlphanumeric();
 	req.checkBody('description', 'Invalid postparam').notEmpty().isAlphanumeric();
 	req.checkBody('content', 'Invalid postparam').notEmpty().isAlphanumeric();
@@ -95,7 +94,7 @@ var create = function(req, res) {
 
 	var errors = req.validationErrors();
   	if (errors) {
-    	res.status(400).send('There have been validation errors: ' +  util.inspect(errors));
+    	res.status(400).send('There have been validation errors: ' +  inspectUtil(errors,"errors"));
     	return;
   	}
 
