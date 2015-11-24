@@ -1,10 +1,24 @@
 var mongoose = require('mongoose');
 
+
+var ReplySchema = new mongoose.Schema({
+	authorName: String,
+	authorEmail: String,
+	response: String,
+	created_at : Date,
+});
+
+ReplySchema.pre('save', function(next){
+	this.created_at = new Date();
+	next();
+})
+
 var CommentSchema = new mongoose.Schema({
 	authorName: String,
 	authorEmail: String,
 	response: String,
-	created_at : Date
+	created_at : Date,
+	replies: [ReplySchema]
 });
 
 CommentSchema.pre('save', function(next){
@@ -20,14 +34,6 @@ var BlogSchema = new mongoose.Schema({
 	created_at : Date, 
 	comments: [CommentSchema]
 })
-
-// BlogSchema.statics.Filtered = function (selector, cb) {
-//   var query = this.find({}).select(selector)
-
-//   query.exec(function (err, model){
-//   	cb(err,model)
-//   })
-// }
 
 BlogSchema.pre('save', function(next){
   now = new Date();

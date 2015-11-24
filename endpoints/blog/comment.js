@@ -13,6 +13,30 @@ var show = function(req, res) {
 	})
 }
 
+var reply = function(req, res){
+	var reply = { authorName: "", authorEmail: "", response: "" }
+	reply.authorName = req.body.authorName;
+	reply.authorEmail = req.body.authorEmail;
+	reply.response = req.body.response;
+
+	Blog.findById(req.params.blog_id, function(err, blog) {
+		if (err)
+			res.send(err);
+
+		comment = blog.comments.id(req.params.comment_id)
+		comment.replies.push(reply)
+
+		blog.save(function  (err) {
+			if (err){ 
+				res.send(err);
+				return;
+			}
+			res.json({ message: 'Reply added', data: comment.replies.pop()})
+		})
+	})
+
+}
+
 
 var destroy = function(req, res){
 	
@@ -74,5 +98,6 @@ module.exports.bindRoutes = function(collection, elem){
 
 	elem
 		.get(show)
+		.post(reply)
 		.delete(auth.isAuthenticated, destroy)
 }
